@@ -1,0 +1,5 @@
+
+
+exports.checkURL=(url)={
+
+}

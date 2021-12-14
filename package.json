@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "moment": "^2.29.1",
+    "node-libcurl": "^2.3.3",
+    "query-string": "^7.0.1"
+  },
+  "name": "polish-payments-lib",
+  "version": "1.0.0",
+  "description": "Polish nodejs payments lib",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wiktor#1597",
+  "license": "ISC"
+}
