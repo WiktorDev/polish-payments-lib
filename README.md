@@ -30,10 +30,12 @@ hpay.generatePayment(price, 'Product name', 'Redirect URL', 'paymentID').then((d
 ###### Generate payment
 
 ```javascript
-const Payment = require('polish-payments-lib');
-const hpay = new Payment.HotPayPSC('HotPay secret', 'Notyfication password');
+const Payment = require('polish-payments-lib')
+const hpay = new Payment.HotPayPSC('HotPay secret', 'Notyfication password')
 
-console.log(hpay.generatePayment(1, 'Ranga VIP', 'https://hotpay.pl', 't'));
+hpay.generatePayment(price, 'Product name', 'Redirect URL', 'paymentID').then((data)=>{
+    console.log(JSON.parse(data).URL)
+})
 ```
 
 ###### Generate signature to notification in express.js (HotPay and HotPayPSC)
