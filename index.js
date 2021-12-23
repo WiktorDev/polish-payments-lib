@@ -1,5 +1,6 @@
 const hotpay = require('./payments/hotpay/hotpay');
 const cashbill = require('./payments/cashbill/cashbill');
+const microsms = require('./payments/microsms/microsms');
 const logger = require('./utils/logger');
 
 class HotPay {
@@ -22,7 +23,6 @@ class HotPay {
     return hotpay.getQuery()
   }
 }
-
 class HotPayPSC {
   constructor(secret, notification_password) {
     this.secret = secret;
@@ -36,7 +36,6 @@ class HotPayPSC {
     return data;
   }
 }
-
 class CashBill{
   constructor(secretPhrase, shopId, production){
     this.secretPhrase = secretPhrase;
@@ -62,5 +61,21 @@ class CashBill{
     return data;
   }
 }
+class MicroSMS{
+  constructor(userID, shopID, hash){
+    this.shopID = shopID;
+    this.userID = userID;
+    this.hash = hash;
+  }
 
-module.exports = { HotPay, HotPayPSC, CashBill }
+  generatePayment(amount, control = null, return_urlc = null, return_url = null, description = null){
+    return microsms.generatePayment(this.userID, this.shopID, this.hash, amount, control, return_urlc, return_url, description);
+  }
+
+  checkIP(ip){
+    const data = microsms.checkIP(ip);
+    return data;
+  }
+}
+
+module.exports = { HotPay, HotPayPSC, CashBill, MicroSMS }

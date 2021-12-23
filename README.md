@@ -72,3 +72,60 @@ app.listen(3000, ()=>{
     console.log('3000')
 })
 ```
+
+* CashBill Bank Transfer
+
+###### Generate payment
+
+```javascript
+const Payment = require('polish-payments-lib');
+const cashbill = new Payment.CashBill('Secret key', 'ShopID', true/false);
+
+cashbill.generatePayment('Product name', 'price', 'currency').then((data)=>{
+    var id = data.id;
+    var paymentURL = data.redirectUrl;
+})
+```
+
+###### Get payment info
+
+```javascript
+const Payment = require('polish-payments-lib');
+const cashbill = new Payment.CashBill('Secret key', 'ShopID', true/false);
+
+cashbill.getPaymentInfo('Payment ID').then((data)=>{
+    console.log(data)
+})
+```
+
+###### Set redirect urls
+
+```javascript
+const Payment = require('polish-payments-lib');
+const cashbill = new Payment.CashBill('Secret key', 'ShopID', true/false);
+
+cashbill.setRedirectURLS('Payment ID', 'Redirect URL', 'Negative redirect url');
+```
+
+* MicroSMS Bank Transfer
+
+###### Generate payment
+
+```javascript
+const Payment = require('polish-payments-lib');
+const microsms = new Payment.MicroSMS('user id', 'shop id', 'hash')
+
+var paymentURL = microsms.generatePayment('price', 'ontrol (optional)', 'returl_urlc (optional)', 'return_url (optional)', 'description (optional)');
+console.log(paymentURL);
+```
+
+###### Check IP
+
+```javascript
+const Payment = require('polish-payments-lib');
+const microsms = new Payment.MicroSMS('user id', 'shop id', 'hash')
+
+microsms.checkIP('ip').then((data)=>{
+    console.log(data) //Return true/false
+});
+```

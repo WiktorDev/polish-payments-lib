@@ -11,8 +11,7 @@ exports.generatePayment= async function generatePayment(title, amount, currency,
             title: title,
             "amount.value": amount,
             "amount.currencyCode": currency,
-            sign: hash,
-            returnUrl: 'https://google.com/'
+            sign: hash
         }),
         SSL_VERIFYPEER: false,
         CUSTOMREQUEST: "POST"
