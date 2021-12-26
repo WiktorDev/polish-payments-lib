@@ -1,17 +1,18 @@
 # polish-payments-lib
 Polish Payments Providers nodejs library
 
-### Supported payment methods:
+### Supported payment operators:
 
 * HotPay
-* HotPay PSC
+* CashBill
+* MicroSMS
 
 ### Installation
 ```bash
 npm install polish-payments-lib
 ```
 
-#### HotPay
+#### Bank transfer
 
 * HotPay bank transfer and PayPal
 
@@ -113,9 +114,9 @@ cashbill.setRedirectURLS('Payment ID', 'Redirect URL', 'Negative redirect url');
 
 ```javascript
 const Payment = require('polish-payments-lib');
-const microsms = new Payment.MicroSMS('user id', 'shop id', 'hash')
+const microsms = new Payment.MicroSMS('user id', 'shop id')
 
-var paymentURL = microsms.generatePayment('price', 'ontrol (optional)', 'returl_urlc (optional)', 'return_url (optional)', 'description (optional)');
+var paymentURL = microsms.generatePayment('price', 'hash', 'control (optional)', 'returl_urlc (optional)', 'return_url (optional)', 'description (optional)');
 console.log(paymentURL);
 ```
 
@@ -123,9 +124,24 @@ console.log(paymentURL);
 
 ```javascript
 const Payment = require('polish-payments-lib');
-const microsms = new Payment.MicroSMS('user id', 'shop id', 'hash')
+const microsms = new Payment.MicroSMS('user id', 'shop id')
 
 microsms.checkIP('ip').then((data)=>{
+    console.log(data) //Return true/false
+});
+```
+
+#### SMS
+
+* MicroSMS SMS
+
+###### Check SMS code
+
+```javascript
+const Payment = require('polish-payments-lib');
+const microsms = new Payment.MicroSMS('user id', 'shop id')
+
+microsms.checkSMSCode('SMS code').then((data)=>{
     console.log(data) //Return true/false
 });
 ```

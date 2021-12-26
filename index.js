@@ -62,18 +62,22 @@ class CashBill{
   }
 }
 class MicroSMS{
-  constructor(userID, shopID, hash){
+  constructor(userID, shopID){
     this.shopID = shopID;
     this.userID = userID;
-    this.hash = hash;
   }
 
-  generatePayment(amount, control = null, return_urlc = null, return_url = null, description = null){
-    return microsms.generatePayment(this.userID, this.shopID, this.hash, amount, control, return_urlc, return_url, description);
+  generatePayment(amount, hash, control = null, return_urlc = null, return_url = null, description = null){
+    return microsms.generatePayment(this.userID, this.shopID, hash, amount, control, return_urlc, return_url, description);
   }
 
   checkIP(ip){
     const data = microsms.checkIP(ip);
+    return data;
+  }
+
+  checkSMSCode(code){
+    const data = microsms.checkSMSCode(code, this.userID, this.shopID);
     return data;
   }
 }
