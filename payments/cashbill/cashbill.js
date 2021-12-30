@@ -22,8 +22,7 @@ exports.generatePayment= async function generatePayment(title, amount, currency,
 exports.setRedirectURLS= async function setRedirectURLS(orderId, returnUrl, negativeReturnUrl, secretPhrase, shopId, url){
     var string = orderId+""+returnUrl+""+negativeReturnUrl+""+secretPhrase
     const hash = crypto.createHash('sha1').update(string).digest('hex');
-
-    const { statusCode, data, headers } = await curly.put(`${url}/payment/${shopId}`, {
+    await curly.put(`${url}/payment/${shopId}/${orderId}`, {
         postFields: querystring.stringify({
             returnUrl: returnUrl,
             negativeReturnUrl: negativeReturnUrl,
