@@ -52,7 +52,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/', (req, res)=>{
-    var notyficationPassword = 'BxxlFfTiu59WMuA';
+    var notyficationPassword = 'Your notyfication password';
     var string = notyficationPassword+";"+req.body.KWOTA+";"+req.body.ID_PLATNOSCI+";"+req.body.ID_ZAMOWIENIA+";"+req.body.STATUS+";"+req.body.SECURE+";"+req.body.SEKRET;
     const hash = crypto.createHash('sha256').update(string).digest('hex');
     if(hash == req.body.HASH){
@@ -175,4 +175,4 @@ microsms.checkSMSCode('SMS code').then((data)=>{
 
 ## Help
 
-For help, contact me on Discord: [wiktor#8880](https://discord.com/users/643819423248941068)
+For help, contact me on Discord: [wiktor#8880](https://discord.com/users/643819423248941068) or [Discord server](https://discord.gg/VFFf7hYfhj)
