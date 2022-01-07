@@ -1,6 +1,7 @@
 const hotpay = require('./payments/hotpay/hotpay');
 const cashbill = require('./payments/cashbill/cashbill');
 const microsms = require('./payments/microsms/microsms');
+const dpay = require('./payments/dpay/dpay')
 const logger = require('./utils/logger');
 
 class HotPay {
@@ -82,4 +83,19 @@ class MicroSMS{
   }
 }
 
-module.exports = { HotPay, HotPayPSC, CashBill, MicroSMS }
+class DPay{
+  constructor(service, secret, production){
+    this.service = service;
+    this.secret = secret;
+    this.production = production;
+  }
+  generatePayment(price, successURL, failURL, ipnURL, description=null, custom=null, installment=null, creditCard=null, paysafecard=null, paypal=null, noBanks=null, channel=null, email=null, client_name=null, client_surname=null, accept_tos=true, style='default'){
+    const data = dpay.generatePayment(this.service, this.secret, this.production, price, successURL, failURL, ipnURL, description, custom, installment, creditCard, paysafecard, paypal, noBanks, channel, email, client_name, client_surname, accept_tos, style);
+    return data;
+  }
+  getPaymentInfo(transactionID){
+    const data = dpay.getPaymentInfo(this.service, this.secret, this.production, transactionID);
+    return data;
+  }
+}
+module.exports = { HotPay, HotPayPSC, CashBill, MicroSMS, DPay }

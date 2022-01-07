@@ -7,3 +7,19 @@ exports.msmsValidateCode=(code)=>{
     }
     return valid;
 }
+
+exports.isNull=(data)=>{
+    if(data == null){
+        return true;
+    }
+    return false
+}
+
+exports.IsJsonString=(str)=>{
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}

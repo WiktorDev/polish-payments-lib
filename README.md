@@ -6,6 +6,7 @@ Polish Payments Providers nodejs library
 * HotPay
 * CashBill
 * MicroSMS
+* DPay
 
 ### Installation
 ```bash
@@ -131,6 +132,32 @@ microsms.checkIP('ip').then((data)=>{
 });
 ```
 
+* DPay Bank Transfer
+
+###### Generate payment
+
+```javascript
+const Payment = require('polish-payments-lib');
+const dpay = new Payment.DPay('service', 'secret', 'production true/false');
+
+/**
+ * Optional: description(string), custom(string), installment(boolean), creditCard(boolean), paysafecard(boolean), paypal(boolean), noBanks(boolean), channel(string), email(string), client_name(string), client_surname(string), accept_tos(boolean), style('default', 'dark', 'orange')
+ * For more info visit Dpay docs (https://docs.dpay.pl/#operation/registerPayment)
+*/
+dpay.generatePayment('price', 'successURL', 'failfail', 'ipnURL').then((data)=>{
+    console.log(JSON.parse(data))
+})
+```
+###### Get payment info
+
+```javascript
+const Payment = require('polish-payments-lib');
+const dpay = new Payment.DPay('service', 'secret', 'production true/false');
+
+dpay.getPaymentInfo('transactionID').then((data)=>{
+    console.log(data)
+})
+```
 #### SMS
 
 * MicroSMS SMS
@@ -145,3 +172,7 @@ microsms.checkSMSCode('SMS code').then((data)=>{
     console.log(data) //Return true/false
 });
 ```
+
+## Help
+
+For help, contact me on Discord: [wiktor#8880](https://discord.com/users/643819423248941068)
