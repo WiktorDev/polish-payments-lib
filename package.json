@@ -22,5 +22,9 @@
   ],
   "author": "wiktor#8880 (https://wiktor.tech/)",
   "license": "ISC",
-  "homepage": "https://github.com/WiktorDev/polish-payments-lib"
+  "homepage": "https://github.com/WiktorDev/polish-payments-lib",
+  "repository": "git://github.com/my-org/test.git",
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
+  }
 }
