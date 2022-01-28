@@ -228,6 +228,33 @@ hpay.generatePayment(price, 'Product name', 'Redirect URL', 'paymentID').then((d
 })
 ```
 
+#### DirectBilling
+
+* PayByLink DirectBilling
+
+###### Generate payment
+
+```javascript
+const Payment = require('polish-payments-lib')
+const pbl = new Payment.PayByLinkDB('login', 'password', 'hash')
+
+pbl.generatePayment(price, 'description', 'control').then((data)=>{
+    console.log(data)
+})
+pbl.getPaymentInfo('https://paybylink.pl/direct-biling/db-1643362990_9071747/').then((res)=>{
+    console.log(res)
+})
+```
+###### Get Payment info
+
+```javascript
+const Payment = require('polish-payments-lib')
+const pbl = new Payment.PayByLinkDB('login', 'password', 'hash')
+
+pbl.getPaymentInfo('paymentURL').then((res)=>{
+    console.log(res)
+})
+```
 ## Help
 
 For help, contact me on Discord: [wiktor#8880](https://discord.com/users/643819423248941068) or [Discord server](https://discord.gg/VFFf7hYfhj)

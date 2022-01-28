@@ -18,7 +18,23 @@ exports.generateDBPayment= async function generatePayment(login, password, hash,
         USERPWD: `${login}:${password}`,
         SSL_VERIFYPEER: false
     })
-    return data;
+    return JSON.parse(data);
+}
+
+exports.getDBPaymentInfo= async function getDBPaymentInfo(login, password, hash, clientURL){
+    var pid = clientURL.replace('https://paybylink.pl/direct-biling/', '').replace('/', '')
+    var params = {
+        pid: pid,
+        signature: crypto.createHash('sha256').update(`${pid}|${hash}`).digest('hex')
+    }
+
+    const { statusCode, data, headers } = await curly.post(`https://paybylink.pl/direct-biling/transactionStatus.php`, {
+        HTTPHEADER: ['Content-Type: application/json'],
+        postFields: JSON.stringify(params),
+        USERPWD: `${login}:${password}`,
+        SSL_VERIFYPEER: false
+    })
+    return JSON.parse(data);
 }
 
 exports.bankTransfer = async function bankTransfer(shopID, hash, price, control, description, email, notifyUrl, returnUrlSuccess, customFinishNote){
@@ -104,9 +120,3 @@ exports.checkCode=async function checkCode(userid, serviceid, number, code){
     var jsonResponse = { payed: payment, used: used, phone: phone }
     return jsonResponse
 }
-
-/**
- * this.generateDBPayment('paybylink.pl', 'jhgHgdhjIuytr67&%5yhd@!', 'mNJBHVGFTYU*(87656yud23fg', 0.3, 'test', 'test').then((data)=>{
-    console.log(JSON.parse(data))
-})
- */

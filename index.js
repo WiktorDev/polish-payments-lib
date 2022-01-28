@@ -127,4 +127,22 @@ class PayByLink{
     return signature;
   }
 }
-module.exports = { HotPay, HotPayPSC, CashBill, MicroSMS, DPay, PayByLinkPSC, PayByLink }
+
+class PayByLinkDB{
+  constructor(login, password, hash){
+    this.login = login;
+    this.password = password;
+    this.hash = hash;
+  }
+  generatePayment(price, description, control){
+    const data = pbl.generateDBPayment(this.login, this.password, this.hash, price, description, control)
+    return data;
+  }
+
+  getPaymentInfo(clientURL){
+    const data = pbl.getDBPaymentInfo(this.login, this.password, this.hash, clientURL)
+    return data;
+  }
+}
+
+module.exports = { HotPay, HotPayPSC, CashBill, MicroSMS, DPay, PayByLinkPSC, PayByLink, PayByLinkDB }
