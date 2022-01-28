@@ -144,5 +144,16 @@ class PayByLinkDB{
     return data;
   }
 }
+class PayByLinkSMS{
+  constructor(userID, serviceID){
+    this.userID = userID;
+    this.serviceID = serviceID;
+  }
 
-module.exports = { HotPay, HotPayPSC, CashBill, MicroSMS, DPay, PayByLinkPSC, PayByLink, PayByLinkDB }
+  checkCode(number, code){
+    const data = pbl.checkCode(this.userID, this.serviceID, number, code)
+    return data;
+  }
+}
+
+module.exports = { HotPay, HotPayPSC, CashBill, MicroSMS, DPay, PayByLinkPSC, PayByLink, PayByLinkDB, PayByLinkSMS }

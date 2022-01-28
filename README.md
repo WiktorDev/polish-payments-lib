@@ -199,6 +199,19 @@ microsms.checkSMSCode('SMS code').then((data)=>{
     console.log(data) //Return true/false
 });
 ```
+
+* PayByLink SMS
+
+###### Check SMS code
+
+```javascript
+const Payment = require('polish-payments-lib')
+const pbl = new Payment.PayByLinkSMS('userID (int)', 'serviceID (int)');
+
+pbl.checkCode('number (int)', 'code').then((response)=>{
+    console.log(response)
+})
+```
 #### PaySafeCard
 
 * PayByLink PSC
