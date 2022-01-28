@@ -2,6 +2,7 @@ const hotpay = require('./payments/hotpay/hotpay');
 const cashbill = require('./payments/cashbill/cashbill');
 const microsms = require('./payments/microsms/microsms');
 const dpay = require('./payments/dpay/dpay')
+const pbl = require('./payments/paybylink/pbl')
 const logger = require('./utils/logger');
 
 class HotPay {
@@ -48,8 +49,8 @@ class CashBill{
     }
   }
 
-  generatePayment(title, amount, currency){
-    const data = cashbill.generatePayment(title, amount, currency, this.secretPhrase, this.shopId, this.url);
+  generatePayment(title, amount, currency, description=null, additionalData=null, paymentChannel=null, languageCode=null, firstName=null, surname=null, email=null){
+    const data = cashbill.generatePayment(this.secretPhrase, this.shopId, this.url, title, amount, currency, description, additionalData, paymentChannel, languageCode, firstName, surname, email)
     return data;
   }
 
@@ -98,4 +99,32 @@ class DPay{
     return data;
   }
 }
-module.exports = { HotPay, HotPayPSC, CashBill, MicroSMS, DPay }
+
+class PayByLinkPSC{
+  constructor(userID, shopID, pin){
+    this.userID = userID;
+    this.shopID = shopID;
+    this.pin = pin;
+  }
+  generatePayment(price, returnSuccess, returnFail, notyficationURL, description=null){
+    const pid = pbl.pscPayment(this.userID, this.shopID, this.pin, price, returnSuccess, returnFail, notyficationURL, description);
+    return pid;
+  }
+}
+
+class PayByLink{
+  constructor(shopID, hash){
+    this.hash = hash;
+    this.shopID = shopID;
+  }
+  generatePayment(price, control, description, email, returnSuccess, notyficationURL, customFinishNote){
+    const data = pbl.bankTransfer(this.shopID, this.hash, price, control, description, email, notyficationURL, returnSuccess, customFinishNote)
+    return data;
+  }
+
+  generateIpnHash(request){
+    var signature = pbl.generateIpnHash(this.hash, request);
+    return signature;
+  }
+}
+module.exports = { HotPay, HotPayPSC, CashBill, MicroSMS, DPay, PayByLinkPSC, PayByLink }

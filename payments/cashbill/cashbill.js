@@ -1,21 +1,27 @@
 const querystring = require('query-string');
 const crypto = require('crypto');
 const { curly } = require('node-libcurl');
+const { isNull } = require('../../utils/validator');
+const { implode } = require('../../utils/functions')
 
-exports.generatePayment= async function generatePayment(title, amount, currency, secretPhrase, shopId, url){
-    var string = title+""+amount+""+currency+""+secretPhrase
-    const hash = crypto.createHash('sha1').update(string).digest('hex');
+exports.generatePayment= async function generatePayment(secretPhrase, shopId, url, title, amount, currency, description, additionalData, paymentChannel, languageCode, firstName, surname, email){
+    var params = {
+        title: title,
+        "amount.value": amount,
+        "amount.currencyCode": currency
+    }
 
-    const { statusCode, data, headers } = await curly.post(`${url}/payment/${shopId}`, {
-        postFields: querystring.stringify({
-            title: title,
-            "amount.value": amount,
-            "amount.currencyCode": currency,
-            sign: hash
-        }),
-        SSL_VERIFYPEER: false,
-        CUSTOMREQUEST: "POST"
-    })
+    if(!isNull(description)) params.description = description;
+    if(!isNull(additionalData)) params.additionalData = additionalData;
+    if(!isNull(paymentChannel)) params.paymentChannel = paymentChannel;
+    if(!isNull(languageCode)) params.languageCode = languageCode;
+    if(!isNull(firstName)) params['personalData.firstName'] = firstName;
+    if(!isNull(surname)) params['personalData.surname'] = surname;
+    if(!isNull(email)) params['personalData.email'] = email;
+    
+    params.sign = crypto.createHash('sha1').update(implode('', params)+secretPhrase).digest('hex');
+
+    const { statusCode, data, headers } = await curly.post(`${url}/payment/${shopId}`, { postFields: querystring.stringify(params), SSL_VERIFYPEER: false })
     return data;
 }
 
