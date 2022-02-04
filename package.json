@@ -1,34 +1,20 @@
 {
   "dependencies": {
-    "express": "^4.17.2",
+    "axios": "^0.25.0",
     "moment": "^2.29.1",
     "node-libcurl": "^2.3.3",
     "query-string": "^7.0.1"
   },
   "name": "polish-payments-lib",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Polish nodejs payments lib",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "polish",
-    "hotpay",
-    "cashbill",
-    "microsms",
-    "dpay",
-    "paybylink",
-    "Bank transfer",
-    "psc",
-    "payments",
-    "polska"
-  ],
+  "keywords": ["polish","hotpay","cashbill","microsms","dpay","paybylink","Bank transfer","psc","payments","polska","lvlup", "paynow"],
   "author": "wiktor#8880 (https://wiktor.tech/)",
   "license": "ISC",
   "homepage": "https://github.com/WiktorDev/polish-payments-lib",
-  "repository": "git://github.com/my-org/test.git",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  }
+  "repository": "git://github.com/my-org/test.git"
 }

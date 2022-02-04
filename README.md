@@ -8,6 +8,8 @@ Polish Payments Providers nodejs library
 * MicroSMS
 * DPay
 * PayByLink
+* Lvlup
+* PayNow
 
 ### Installation
 ```bash
@@ -31,14 +33,6 @@ hpay.generatePayment(price, 'Product name', 'Redirect URL', 'paymentID').then((d
 ###### Generate signature to notification in express.js (HotPay and HotPayPSC)
 
 ```javascript
-const express = require('express')
-const bodyParser = require('body-parser');
-const crypto = require('crypto')
-var app = express();
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 app.post('/', (req, res)=>{
     var notyficationPassword = 'Your notyfication password';
     var string = notyficationPassword+";"+req.body.KWOTA+";"+req.body.ID_PLATNOSCI+";"+req.body.ID_ZAMOWIENIA+";"+req.body.STATUS+";"+req.body.SECURE+";"+req.body.SEKRET;
@@ -56,10 +50,6 @@ app.post('/', (req, res)=>{
                 break;
         }
     }
-})
-
-app.listen(3000, ()=>{
-    console.log('3000')
 })
 ```
 
@@ -185,6 +175,93 @@ app.post('/', (req, res)=>{
 })
 ```
 
+* Lvlup Transfer
+
+###### Generate payment
+
+```javascript
+const Payment = require('polish-payments-lib')
+const lvlup = new Payment.Lvlup('api_key', 'sandobx true/false');
+
+lvlup.generatePayment('price', 'redirect url', 'webhook url').then((response)=>{
+    console.log(response)
+})
+```
+###### Get payment info
+
+```javascript
+const Payment = require('polish-payments-lib')
+const lvlup = new Payment.Lvlup('api_key', 'sandobx true/false');
+
+lvlup.getPaymentInfo('paymentID').then((data)=>{
+    console.log(data)
+})
+```
+###### Get payments list
+
+```javascript
+const Payment = require('polish-payments-lib')
+const lvlup = new Payment.Lvlup('api_key', 'sandobx true/false');
+
+lvlup.getPaymentsList().then((response)=>{
+    console.log(response)
+})
+```
+###### Generate sandbox account
+
+```javascript
+const Payment = require('polish-payments-lib')
+const lvlup = new Payment.Lvlup('api_key', 'sandobx true/false');
+
+lvlup.generateSandboxAccount().then((response)=>{
+    console.log(response)
+})
+```
+###### Accept sandbox payment
+
+```javascript
+const Payment = require('polish-payments-lib')
+const lvlup = new Payment.Lvlup('api_key', 'sandobx true/false');
+
+lvlup.sandboxAcceptPayment('PaymentID')
+```
+
+* PayNow transfer
+
+###### Generate payment
+
+```javascript
+const Payment = require('polish-payments-lib');
+const pnow = new Payment.PayNow('secret', 'signature', 'sandbox true/false)
+
+/**
+ * For more info visit PayNow docs (https://docs.paynow.pl/#operation/sendPaymentRequest)
+*/
+pnow.generatePayment('idempotency', 'amount', 'currency (optional)', 'externalID', 'description', 'continueURl(optional)', 'email', 'name(optional)', 'lastname(opt)', 'locale(optional)', 'validityTime(optional)', 'paymentMethodID(optional)', 'authorizationCode(optional)').then((response)=>{
+    console.log(response)
+})
+```
+###### Get Payment info
+
+```javascript
+const Payment = require('polish-payments-lib');
+const pnow = new Payment.PayNow('secret', 'signature', 'sandbox true/false)
+
+pnow.getPaymentInfo('paymentID').then((response)=>{
+    console.log(response)
+})
+```
+###### Get Payments methods
+
+```javascript
+const Payment = require('polish-payments-lib');
+const pnow = new Payment.PayNow('secret', 'signature', 'sandbox true/false)
+
+pnow.getPaymentsMethods().then((response)=>{
+    console.log(response)
+})
+```
+
 #### SMS
 
 * MicroSMS SMS
@@ -254,7 +331,7 @@ const pbl = new Payment.PayByLinkDB('login', 'password', 'hash')
 pbl.generatePayment(price, 'description', 'control').then((data)=>{
     console.log(data)
 })
-pbl.getPaymentInfo('https://paybylink.pl/direct-biling/db-1643362990_9071747/').then((res)=>{
+pbl.getPaymentInfo('paymentURL').then((res)=>{
     console.log(res)
 })
 ```

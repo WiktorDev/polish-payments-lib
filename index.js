@@ -1,8 +1,10 @@
 const hotpay = require('./payments/hotpay/hotpay');
 const cashbill = require('./payments/cashbill/cashbill');
 const microsms = require('./payments/microsms/microsms');
-const dpay = require('./payments/dpay/dpay')
-const pbl = require('./payments/paybylink/pbl')
+const dpay = require('./payments/dpay/dpay');
+const pbl = require('./payments/paybylink/pbl');
+const paynow = require('./payments/paynow/paynow');
+const lvlup = require('./payments/lvlup/lvlup');
 const logger = require('./utils/logger');
 
 class HotPay {
@@ -156,4 +158,52 @@ class PayByLinkSMS{
   }
 }
 
-module.exports = { HotPay, HotPayPSC, CashBill, MicroSMS, DPay, PayByLinkPSC, PayByLink, PayByLinkDB, PayByLinkSMS }
+class PayNow{
+  constructor(apikey, signature, sandbox){
+    this.apikey = apikey;
+    this.signature = signature;
+    this.sandbox = sandbox;
+  }
+
+  generatePayment(idemptency, amount, currency=null, externalId, description, continueUrl=null, email, firstName=null, lastName=null, locale=null, validityTime=null, paymentMethodId=null, authorizationCode=null){
+    const data = paynow.generatePayment(this.apikey, this.signature, idemptency, this.sandbox, amount, currency, externalId, description, continueUrl, email, firstName, lastName, locale, validityTime, paymentMethodId, authorizationCode)
+    return data;
+  }
+  getPaymentInfo(paymentID){
+    const data = paynow.getPaymentInfo(this.apikey, this.sandbox, paymentID);
+    return data;
+  }
+  getPaymentsMethods(){
+    const data = paynow.getPaymentsMethods(this.apikey, this.sandbox);
+    return data;
+  }
+}
+
+class Lvlup{
+  constructor(apikey, sandbox){
+    this.apikey = apikey;
+    this.sandbox = sandbox;
+  }
+
+  generatePayment(amount, redirectUrl, webhookUrl){
+    const data = lvlup.generatePayment(this.apikey, this.sandbox, amount, redirectUrl, webhookUrl);
+    return data;
+  }
+  getPaymentInfo(paymentID){
+    const data = lvlup.getPaymentInfo(this.apikey, this.sandbox, paymentID);
+    return data;
+  }
+  getPaymentsList(){
+    const data = lvlup.getPaymentsList(this.apikey, this.sandbox);
+    return data;
+  }
+  generateSandboxAccount(){
+    const data = lvlup.generateSandboxAccount();
+    return data;
+  }
+  sandboxAcceptPayment(paymentID){
+    lvlup.sandboxAcceptPayment(this.apikey, paymentID)
+  }
+}
+
+module.exports = { HotPay, HotPayPSC, CashBill, MicroSMS, DPay, PayByLinkPSC, PayByLink, PayByLinkDB, PayByLinkSMS, PayNow, Lvlup }

@@ -70,6 +70,11 @@ exports.generatePSCPayment= async function generatePSCPayment(secret, password, 
     return data;
 }
 
+exports.checkCode=async function checkCode(secret, code){
+    const { statusCode, data, headers } = await curly.get(`https://apiv2.hotpay.pl/v1/sms/sprawdz?sekret=${secret}&kod_sms=${code}`, { SSL_VERIFYPEER: false })
+    console.log(data)
+}
+
 function IsJsonString(str) {
     try {
         JSON.parse(str);
@@ -78,3 +83,5 @@ function IsJsonString(str) {
     }
     return true;
 }
+
+//this.checkCode('SzdNcy9kcTlCZVN1Ny9ZemlzUFBpSXQzT0lhcHpmb2l2cnFpN1Q2ZHZIST0,', 'dsf5421f')
