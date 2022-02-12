@@ -12,7 +12,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["polish","hotpay","cashbill","microsms","dpay","paybylink","Bank transfer","psc","payments","polska","lvlup", "paynow"],
+  "keywords": [
+    "polish",
+    "hotpay",
+    "cashbill",
+    "microsms",
+    "dpay",
+    "paybylink",
+    "Bank transfer",
+    "psc",
+    "payments",
+    "polska",
+    "lvlup",
+    "paynow"
+  ],
   "author": "wiktor#8880 (https://wiktor.tech/)",
   "license": "ISC",
   "homepage": "https://github.com/WiktorDev/polish-payments-lib",

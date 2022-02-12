@@ -49,3 +49,13 @@ exports.implode=(glue, data)=>{
     }
     return data
 }
+
+exports.ksort=(obj)=>{
+    var keys = Object.keys(obj).sort(), sortedObj = {};
+  
+    for(var i in keys) {
+      sortedObj[keys[i]] = obj[keys[i]];
+    }
+  
+    return sortedObj;
+}

@@ -1,5 +1,0 @@
-{
-    "BANK_TRANSFER": "https://microsms.pl/api/bankTransfer/?",
-    "CHECK_IPS": "https://microsms.pl/psc/ips",
-    "CHECK_SMS": "https://microsms.pl/api/check_multi.php"
-}

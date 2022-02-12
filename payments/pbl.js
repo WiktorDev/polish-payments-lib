@@ -1,9 +1,8 @@
 const querystring = require('query-string');
 const crypto = require('crypto');
 const { curly } = require('node-libcurl');
-const { isNull, IsJsonString } = require('../../utils/validator');
-const { implode } = require('../../utils/functions');
-const config = require('./config.json');
+const { isNull, IsJsonString } = require('../utils/validator');
+const { implode } = require('../utils/functions');
 
 exports.generateDBPayment= async function generatePayment(login, password, hash, price, description, control){
     var params = {
@@ -13,7 +12,7 @@ exports.generateDBPayment= async function generatePayment(login, password, hash,
     }
     params.signature = crypto.createHash('sha256').update(implode('|', params)+'|'+hash).digest('hex');
 
-    const { statusCode, data, headers } = await curly.post(config.DIRECTBILLING, {
+    const { statusCode, data, headers } = await curly.post('https://paybylink.pl/direct-biling/', {
         HTTPHEADER: ['Content-Type: application/json'],
         postFields: JSON.stringify(params),
         USERPWD: `${login}:${password}`,
@@ -23,13 +22,13 @@ exports.generateDBPayment= async function generatePayment(login, password, hash,
 }
 
 exports.getDBPaymentInfo= async function getDBPaymentInfo(login, password, hash, clientURL){
-    var pid = clientURL.replace(config.DIRECTBILLING, '').replace('/', '')
+    var pid = clientURL.replace('https://paybylink.pl/direct-biling/', '').replace('/', '')
     var params = {
         pid: pid,
         signature: crypto.createHash('sha256').update(`${pid}|${hash}`).digest('hex')
     }
 
-    const { statusCode, data, headers } = await curly.post(`${config.DIRECTBILLING}transactionStatus.php`, {
+    const { statusCode, data, headers } = await curly.post(`https://paybylink.pl/direct-biling/transactionStatus.php`, {
         HTTPHEADER: ['Content-Type: application/json'],
         postFields: JSON.stringify(params),
         USERPWD: `${login}:${password}`,
@@ -52,7 +51,7 @@ exports.bankTransfer = async function bankTransfer(shopID, hash, price, control,
 
     params.signature = crypto.createHash('sha256').update(hash+'|'+implode('|', params)).digest('hex');
 
-    const { statusCode, data, headers } = await curly.post(config.TRANSFER, {
+    const { statusCode, data, headers } = await curly.post('https://secure.pbl.pl/api/v1/transfer/generate', {
         HTTPHEADER: ['Content-Type: application/json'],
         postFields: JSON.stringify(params),
         SSL_VERIFYPEER: false
@@ -80,7 +79,7 @@ exports.pscPayment = async function pscPayment(userID, shopID, pin, price, retur
     if(!isNull(description)) params.description = description;
     params.hash = crypto.createHash('sha256').update(userID+pin+price).digest('hex');
 
-    const { statusCode, data, headers } = await curly.post(config.PAYSAFECARD, {
+    const { statusCode, data, headers } = await curly.post('https://paybylink.pl/api/psc/', {
         postFields: querystring.stringify(params),
         SSL_VERIFYPEER: false
     })
@@ -96,7 +95,7 @@ exports.pscPayment = async function pscPayment(userID, shopID, pin, price, retur
 
 exports.checkCode=async function checkCode(userid, serviceid, number, code){
     var params = querystring.stringify({ userid: userid, serviceid: serviceid, number: number, code: code})
-    const { statusCode, data, headers } = await curly.get(`${config.SMS}?${params}`, { SSL_VERIFYPEER: false })
+    const { statusCode, data, headers } = await curly.get(`https://paybylink.pl/api/v2/index.php?${params}`, { SSL_VERIFYPEER: false })
     var payment;
     var used;
     var phone;

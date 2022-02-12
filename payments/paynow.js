@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { isNull } = require('../../utils/validator');
+const { isNull } = require('../utils/validator');
 const crypto = require('crypto')
 
 exports.generatePayment = async function(apikey, signature, idempotency, sandbox, amount, currency, externalId, description, continueUrl, email, firstName, lastName, locale, validityTime, paymentMethodId, authorizationCode){

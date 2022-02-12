@@ -1,6 +1,0 @@
-{
-    "TRANSFER": "https://secure.pbl.pl/api/v1/transfer/generate",
-    "DIRECTBILLING": "https://paybylink.pl/direct-biling/",
-    "PAYSAFECARD": "https://paybylink.pl/api/psc/",
-    "SMS": "https://paybylink.pl/api/v2/index.php"
-}

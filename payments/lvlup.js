@@ -1,5 +1,5 @@
 const axios = require('axios');
-const logger = require('../../utils/logger');
+const logger = require('../utils/logger');
 
 exports.generatePayment= async function(apikey, sandbox, amount, redirectUrl, webhookUrl){
     var data = {

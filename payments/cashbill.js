@@ -1,8 +1,8 @@
 const querystring = require('query-string');
 const crypto = require('crypto');
 const { curly } = require('node-libcurl');
-const { isNull } = require('../../utils/validator');
-const { implode } = require('../../utils/functions')
+const { isNull } = require('../utils/validator');
+const { implode } = require('../utils/functions')
 
 exports.generatePayment= async function generatePayment(secretPhrase, shopId, url, title, amount, currency, description, additionalData, paymentChannel, languageCode, firstName, surname, email){
     var params = {

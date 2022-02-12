@@ -1,10 +1,10 @@
-const hotpay = require('./payments/hotpay/hotpay');
-const cashbill = require('./payments/cashbill/cashbill');
-const microsms = require('./payments/microsms/microsms');
-const dpay = require('./payments/dpay/dpay');
-const pbl = require('./payments/paybylink/pbl');
-const paynow = require('./payments/paynow/paynow');
-const lvlup = require('./payments/lvlup/lvlup');
+const hotpay = require('./payments/hotpay');
+const cashbill = require('./payments/cashbill');
+const microsms = require('./payments/microsms');
+const dpay = require('./payments/dpay');
+const pbl = require('./payments/pbl');
+const paynow = require('./payments/paynow');
+const lvlup = require('./payments/lvlup');
 const logger = require('./utils/logger');
 
 class HotPay {
