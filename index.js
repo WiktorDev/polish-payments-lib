@@ -5,6 +5,7 @@ const dpay = require('./payments/dpay');
 const pbl = require('./payments/pbl');
 const paynow = require('./payments/paynow');
 const lvlup = require('./payments/lvlup');
+const paypal = require('./payments/paypal')
 const logger = require('./utils/logger');
 
 class HotPay {
@@ -206,4 +207,19 @@ class Lvlup{
   }
 }
 
-module.exports = { HotPay, HotPayPSC, CashBill, MicroSMS, DPay, PayByLinkPSC, PayByLink, PayByLinkDB, PayByLinkSMS, PayNow, Lvlup }
+class PayPal{
+  constructor(clientID, clientSecret, sandbox){
+    this.clientID = clientID;
+    this.clientSecret = clientSecret;
+    this.sandbox = sandbox;
+  }
+  generatePayment(returnOK, returnFail, itemName, itemPrice, description){
+    const response = paypal.generatePayment(this.clientID, this.clientSecret, this.sandbox, returnOK, returnFail, itemName, parseFloat(itemPrice), description)
+    return response
+  }
+  getPaymentInfo(paymentID){
+    const response = paypal.getPaymentInfo(this.clientID, this.clientSecret, this.sandbox, paymentID)
+    return response;
+  }
+}
+module.exports = { HotPay, HotPayPSC, CashBill, MicroSMS, DPay, PayByLinkPSC, PayByLink, PayByLinkDB, PayByLinkSMS, PayNow, Lvlup, PayPal }

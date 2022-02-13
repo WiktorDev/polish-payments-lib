@@ -102,7 +102,3 @@ function IsJsonString(str) {
 }
 
 //this.checkCode('SzdNcy9kcTlCZVN1Ny9ZemlzUFBpSXQzT0lhcHpmb2l2cnFpN1Q2ZHZIST0,', 'dsf5421f')
-
-this.generatePaymentAxios("OGk1NXZHbzB2clR3VzA2Q0ExakN0aUprTW5zZzIwb2IzZjVNeSs4N2c2dz0,", "BxxlFfTiu59WMuA", "1", "test", "https://yshop.pl", "test13").then((data)=>{
-    console.log(data)
-})
