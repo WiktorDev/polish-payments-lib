@@ -63,6 +63,3 @@ exports.getPaymentInfo=async(clientID, clientSecret, sandbox, paymentID)=>{
         return error.response.data
     }
 }
-this.getPaymentInfo('Ac6x_7ILVOCcr0YP8KkzH2MTM4FisZBesVyeW8Tv2N9mGu6duOV-YCzIM-4Lay9wwEtATke6mAM5VYJA', 'EESFsHGf4MjR99UdU2e_2Kq5KbiDP-5h0F-7bfqGjrhb7FAI0aQuXKr3a1PXdKDAfU3qFJcskP56Nbxp', true, 'PAYID-MIEUYSQ3ND425879K893730F').then((res)=>{
-    console.log(res)
-})
