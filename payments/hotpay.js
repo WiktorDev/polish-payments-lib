@@ -36,10 +36,6 @@ exports.generatePayment=async function(secret, password, price, name, redirect, 
     }
 }
 
-this.generatePayment('OGk1NXZHbzB2clR3VzA2Q0ExakN0aUprTW5zZzIwb2IzZjVNeSs4N2c2dz0,', 'BxxlFfTiu59WMuA', '1', null, 'https://hotpay.pl', 'XXX').then((r)=>{
-    console.log(r)
-})
-
 exports.generatePSCPayment= async function generatePSCPayment(secret, password, price, name, redirect, id){
     var string = password+";"+price+";"+name+";"+redirect+";"+id+";"+secret;
     const hash = crypto.createHash('sha256').update(string).digest('hex');
