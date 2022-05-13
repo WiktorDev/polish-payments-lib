@@ -7,6 +7,9 @@ exports.generatePayment=async function(secret, password, price, name, redirect, 
     var string = password+";"+price+";"+name+";"+redirect+";"+id+";"+secret;
     const hash = crypto.createHash('sha256').update(string).digest('hex');
 
+    if(!secret || !password || !price || !name || !redirect || !id){
+        return `{ "STATUS": false, "WIADOMOSC": "ERROR", "URL": null }`
+    }
     var data = querystring.stringify({
         SEKRET: secret,
         KWOTA: price,

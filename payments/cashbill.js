@@ -24,9 +24,7 @@ exports.generatePayment= async function generatePayment(secretPhrase, shopId, ur
     var config = {
         method: 'post',
         url: `${url}/payment/${shopId}`,
-        headers: { 
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         data: qs.stringify(params)
     };
     

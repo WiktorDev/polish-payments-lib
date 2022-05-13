@@ -6,46 +6,32 @@ const pbl = require('./payments/pbl');
 const paynow = require('./payments/paynow');
 const lvlup = require('./payments/lvlup');
 const paypal = require('./payments/paypal')
-const logger = require('./utils/logger');
 
 class HotPay {
   constructor(secret, notification_password) {
     this.secret = secret;
     this.notification_password = notification_password;
-    this.generated = false;
   }
-
   generatePayment(price, service_name, redirect, order_id){
-    const data = hotpay.generatePayment(this.secret, this.notification_password, price, service_name, redirect, order_id)
-    this.generated = true;
-    return data;
-  }
-  getQuery(){
-    if(!this.generated){
-      logger.error('Payment is not generated!')
-      return "not-generated"
-    }
-    return hotpay.getQuery()
+    return hotpay.generatePayment(this.secret, this.notification_password, price, service_name, redirect, order_id);
   }
 }
+
 class HotPayPSC {
   constructor(secret, notification_password) {
     this.secret = secret;
     this.notification_password = notification_password;
-    this.generated = false;
   }
-  
   generatePayment(price, service_name, redirect, order_id) {
-    const data = hotpay.generatePSCPayment(this.secret, this.notification_password, price, service_name, redirect, order_id)
-    this.generated = true;
-    return data;
+    return hotpay.generatePSCPayment(this.secret, this.notification_password, price, service_name, redirect, order_id);
   }
 }
+
 class CashBill{
-  constructor(secretPhrase, shopId, production){
+  constructor(secretPhrase, shopId, sandbox){
     this.secretPhrase = secretPhrase;
     this.shopId = shopId;
-    if(production == false){
+    if(sandbox === true){
       this.url = 'https://pay.cashbill.pl/testws/rest';
     }else{
       this.url = 'https://pay.cashbill.pl/ws/rest';
@@ -53,8 +39,7 @@ class CashBill{
   }
 
   generatePayment(title, amount, currency, description=null, additionalData=null, paymentChannel=null, languageCode=null, firstName=null, surname=null, email=null){
-    const data = cashbill.generatePayment(this.secretPhrase, this.shopId, this.url, title, amount, currency, description, additionalData, paymentChannel, languageCode, firstName, surname, email)
-    return data;
+    return cashbill.generatePayment(this.secretPhrase, this.shopId, this.url, title, amount, currency, description, additionalData, paymentChannel, languageCode, firstName, surname, email);
   }
 
   setRedirectURLS(orderId, returnUrl, negativeReturnUrl){
@@ -62,8 +47,7 @@ class CashBill{
   }
 
   getPaymentInfo(orderId){
-    const data = cashbill.getPaymentInfo(orderId, this.secretPhrase, this.shopId, this.url)
-    return data;
+    return cashbill.getPaymentInfo(orderId, this.secretPhrase, this.shopId, this.url);
   }
 }
 class MicroSMS{
@@ -77,13 +61,11 @@ class MicroSMS{
   }
 
   checkIP(ip){
-    const data = microsms.checkIP(ip);
-    return data;
+    return microsms.checkIP(ip);
   }
 
   checkSMSCode(code){
-    const data = microsms.checkSMSCode(code, this.userID, this.shopID);
-    return data;
+    return microsms.checkSMSCode(code, this.userID, this.shopID);
   }
 }
 
@@ -94,12 +76,10 @@ class DPay{
     this.production = production;
   }
   generatePayment(price, successURL, failURL, ipnURL, description=null, custom=null, installment=null, creditCard=null, paysafecard=null, paypal=null, noBanks=null, channel=null, email=null, client_name=null, client_surname=null, accept_tos=true, style='default'){
-    const data = dpay.generatePayment(this.service, this.secret, this.production, price, successURL, failURL, ipnURL, description, custom, installment, creditCard, paysafecard, paypal, noBanks, channel, email, client_name, client_surname, accept_tos, style);
-    return data;
+    return dpay.generatePayment(this.service, this.secret, this.production, price, successURL, failURL, ipnURL, description, custom, installment, creditCard, paysafecard, paypal, noBanks, channel, email, client_name, client_surname, accept_tos, style);
   }
   getPaymentInfo(transactionID){
-    const data = dpay.getPaymentInfo(this.service, this.secret, this.production, transactionID);
-    return data;
+    return dpay.getPaymentInfo(this.service, this.secret, this.production, transactionID);
   }
 }
 
@@ -110,8 +90,7 @@ class PayByLinkPSC{
     this.pin = pin;
   }
   generatePayment(price, returnSuccess, returnFail, notyficationURL, description=null){
-    const pid = pbl.pscPayment(this.userID, this.shopID, this.pin, price, returnSuccess, returnFail, notyficationURL, description);
-    return pid;
+    return pbl.pscPayment(this.userID, this.shopID, this.pin, price, returnSuccess, returnFail, notyficationURL, description);
   }
 }
 
@@ -121,13 +100,11 @@ class PayByLink{
     this.shopID = shopID;
   }
   generatePayment(price, control, description, email, returnSuccess, notyficationURL, customFinishNote){
-    const data = pbl.bankTransfer(this.shopID, this.hash, price, control, description, email, notyficationURL, returnSuccess, customFinishNote)
-    return data;
+    return pbl.bankTransfer(this.shopID, this.hash, price, control, description, email, notyficationURL, returnSuccess, customFinishNote);
   }
 
   generateIpnHash(request){
-    var signature = pbl.generateIpnHash(this.hash, request);
-    return signature;
+    return pbl.generateIpnHash(this.hash, request);
   }
 }
 
@@ -138,13 +115,11 @@ class PayByLinkDB{
     this.hash = hash;
   }
   generatePayment(price, description, control){
-    const data = pbl.generateDBPayment(this.login, this.password, this.hash, price, description, control)
-    return data;
+    return pbl.generateDBPayment(this.login, this.password, this.hash, price, description, control);
   }
 
   getPaymentInfo(clientURL){
-    const data = pbl.getDBPaymentInfo(this.login, this.password, this.hash, clientURL)
-    return data;
+    return pbl.getDBPaymentInfo(this.login, this.password, this.hash, clientURL);
   }
 }
 class PayByLinkSMS{
@@ -154,8 +129,7 @@ class PayByLinkSMS{
   }
 
   checkCode(number, code){
-    const data = pbl.checkCode(this.userID, this.serviceID, number, code)
-    return data;
+    return pbl.checkCode(this.userID, this.serviceID, number, code);
   }
 }
 
@@ -167,16 +141,13 @@ class PayNow{
   }
 
   generatePayment(idemptency, amount, currency=null, externalId, description, continueUrl=null, email, firstName=null, lastName=null, locale=null, validityTime=null, paymentMethodId=null, authorizationCode=null){
-    const data = paynow.generatePayment(this.apikey, this.signature, idemptency, this.sandbox, amount, currency, externalId, description, continueUrl, email, firstName, lastName, locale, validityTime, paymentMethodId, authorizationCode)
-    return data;
+    return paynow.generatePayment(this.apikey, this.signature, idemptency, this.sandbox, amount, currency, externalId, description, continueUrl, email, firstName, lastName, locale, validityTime, paymentMethodId, authorizationCode);
   }
   getPaymentInfo(paymentID){
-    const data = paynow.getPaymentInfo(this.apikey, this.sandbox, paymentID);
-    return data;
+    return paynow.getPaymentInfo(this.apikey, this.sandbox, paymentID);
   }
   getPaymentsMethods(){
-    const data = paynow.getPaymentsMethods(this.apikey, this.sandbox);
-    return data;
+    return paynow.getPaymentsMethods(this.apikey, this.sandbox);
   }
 }
 
@@ -187,20 +158,16 @@ class Lvlup{
   }
 
   generatePayment(amount, redirectUrl, webhookUrl){
-    const data = lvlup.generatePayment(this.apikey, this.sandbox, amount, redirectUrl, webhookUrl);
-    return data;
+    return lvlup.generatePayment(this.apikey, this.sandbox, amount, redirectUrl, webhookUrl);
   }
   getPaymentInfo(paymentID){
-    const data = lvlup.getPaymentInfo(this.apikey, this.sandbox, paymentID);
-    return data;
+    return lvlup.getPaymentInfo(this.apikey, this.sandbox, paymentID);
   }
   getPaymentsList(){
-    const data = lvlup.getPaymentsList(this.apikey, this.sandbox);
-    return data;
+    return lvlup.getPaymentsList(this.apikey, this.sandbox);
   }
   generateSandboxAccount(){
-    const data = lvlup.generateSandboxAccount();
-    return data;
+      return lvlup.generateSandboxAccount();
   }
   sandboxAcceptPayment(paymentID){
     lvlup.sandboxAcceptPayment(this.apikey, paymentID)
@@ -214,12 +181,10 @@ class PayPal{
     this.sandbox = sandbox;
   }
   generatePayment(returnOK, returnFail, itemName, itemPrice, description){
-    const response = paypal.generatePayment(this.clientID, this.clientSecret, this.sandbox, returnOK, returnFail, itemName, parseFloat(itemPrice), description)
-    return response
+    return paypal.generatePayment(this.clientID, this.clientSecret, this.sandbox, returnOK, returnFail, itemName, parseFloat(itemPrice), description)
   }
   getPaymentInfo(paymentID){
-    const response = paypal.getPaymentInfo(this.clientID, this.clientSecret, this.sandbox, paymentID)
-    return response;
+    return paypal.getPaymentInfo(this.clientID, this.clientSecret, this.sandbox, paymentID);
   }
 }
 module.exports = { HotPay, HotPayPSC, CashBill, MicroSMS, DPay, PayByLinkPSC, PayByLink, PayByLinkDB, PayByLinkSMS, PayNow, Lvlup, PayPal }
