@@ -3,6 +3,41 @@ const crypto = require('crypto');
 const logger = require('../utils/logger');
 const axios = require('axios');
 
+exports.generateDirectBillingHash=(data, password)=>{
+    let string = `${password};${data.KWOTA};${data.ID_PLATNOSCI};${data.ID_ZAMOWIENIA};${data.STATUS};${data.SEKRET}`
+    return crypto.createHash('sha256').update(string).digest('hex')
+}
+
+exports.generateDirectBillingPayment=(type, secret, password, price, name, return_ok, return_fail, id)=>{
+    let url = "https://directbilling.hotpay.pl/";
+    switch (type){
+        case 'form':
+            let form = `
+                <form name="order" method="post" action="${url}">;
+                    <input name="SEKRET" value="${secret}" type="hidden">
+                    <input name="KWOTA" value="${price}" type="hidden">
+                    <input name="NAZWA_USLUGI" value="${name}" type="hidden">
+                    <input name="PRZEKIEROWANIE_SUKCESS" value="${return_ok}" type="hidden">
+                    <input name="PRZEKIEROWANIE_BLAD" value="${return_fail}" type="hidden">
+                    <input name="ID_ZAMOWIENIA" value="${id}" type="hidden">
+                    <button type="submit">Zapłać</button>
+                </form>
+            `;
+            return form;
+        case 'url':
+            let query = {
+                SEKRET: secret,
+                KWOTA: price,
+                NAZWA_USLUGI: name,
+                PRZEKIEROWANIE_SUKCESS: return_ok,
+                PRZEKIEROWANIE_BLAD: return_fail,
+                ID_ZAMOWIENIA: id
+            }
+            return `${url}?${querystring.stringify(query)}`
+        default:
+            return "Invalid type!"
+    }
+}
 exports.generatePayment=async function(secret, password, price, name, redirect, id){
     var string = password+";"+price+";"+name+";"+redirect+";"+id+";"+secret;
     const hash = crypto.createHash('sha256').update(string).digest('hex');

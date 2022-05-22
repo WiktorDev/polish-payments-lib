@@ -1,8 +1,7 @@
 const crypto = require('crypto');
-const { isNull } = require('../utils/validator');
-const { implode } = require('../utils/functions')
+const { implode, isNull } = require('../utils/functions')
 const axios = require('axios');
-const qs = require('qs');
+const querystring = require('query-string');
 
 exports.generatePayment= async function generatePayment(secretPhrase, shopId, url, title, amount, currency, description, additionalData, paymentChannel, languageCode, firstName, surname, email){
     var params = {
@@ -25,7 +24,7 @@ exports.generatePayment= async function generatePayment(secretPhrase, shopId, ur
         method: 'post',
         url: `${url}/payment/${shopId}`,
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        data: qs.stringify(params)
+        data: querystring.stringify(params)
     };
     
     try {
@@ -40,7 +39,7 @@ exports.setRedirectURLS= async function setRedirectURLS(orderId, returnUrl, nega
     var string = orderId+""+returnUrl+""+negativeReturnUrl+""+secretPhrase
     const hash = crypto.createHash('sha1').update(string).digest('hex');
 
-    var data = qs.stringify({
+    var data = querystring.stringify({
         returnUrl: returnUrl,
         negativeReturnUrl: negativeReturnUrl,
         sign: hash

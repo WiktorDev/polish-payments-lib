@@ -1,7 +1,6 @@
 const querystring = require('query-string');
 const crypto = require('crypto');
-const { isNull } = require('../utils/validator');
-const { implode } = require('../utils/functions');
+const { implode, isNull } = require('../utils/functions');
 const axios = require('axios');
 
 exports.generateDBPayment= async function generatePayment(login, password, hash, price, description, control){

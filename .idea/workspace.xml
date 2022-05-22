@@ -3,12 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="8d68f6ac-58bf-42c5-9fd3-9b876d6c47c9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/payments/cashbill.js" beforeDir="false" afterPath="$PROJECT_DIR$/payments/cashbill.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payments/dpay.js" beforeDir="false" afterPath="$PROJECT_DIR$/payments/dpay.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/payments/hotpay.js" beforeDir="false" afterPath="$PROJECT_DIR$/payments/hotpay.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payments/microsms.js" beforeDir="false" afterPath="$PROJECT_DIR$/payments/microsms.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payments/paynow.js" beforeDir="false" afterPath="$PROJECT_DIR$/payments/paynow.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payments/paypal.js" beforeDir="false" afterPath="$PROJECT_DIR$/payments/paypal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/payments/pbl.js" beforeDir="false" afterPath="$PROJECT_DIR$/payments/pbl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/functions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/validator.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +56,10 @@
       <workItem from="1651163851979" duration="457000" />
       <workItem from="1651250885231" duration="1145000" />
       <workItem from="1652025262224" duration="1189000" />
-      <workItem from="1652425681960" duration="3277000" />
+      <workItem from="1652425681960" duration="5154000" />
+      <workItem from="1652637972159" duration="16000" />
+      <workItem from="1653204967852" duration="391000" />
+      <workItem from="1653237780850" duration="1065000" />
     </task>
     <servers />
   </component>

@@ -63,3 +63,4 @@ exports.getPaymentInfo=async(clientID, clientSecret, sandbox, paymentID)=>{
         return error.response.data
     }
 }
+

@@ -17,6 +17,19 @@ class HotPay {
   }
 }
 
+class HotPayDB{
+  constructor(secret, password) {
+    this.secret = secret;
+    this.password = password;
+  }
+  generatePayment(type, price, service_name, redirect_ok, redirect_fail, order_id){
+    return hotpay.generateDirectBillingPayment(type, this.secret, this.password, price, service_name, redirect_ok, redirect_fail, order_id)
+  }
+  generateHash(data){
+    return hotpay.generateDirectBillingHash(data, this.password)
+  }
+}
+
 class HotPayPSC {
   constructor(secret, notification_password) {
     this.secret = secret;
@@ -187,4 +200,5 @@ class PayPal{
     return paypal.getPaymentInfo(this.clientID, this.clientSecret, this.sandbox, paymentID);
   }
 }
-module.exports = { HotPay, HotPayPSC, CashBill, MicroSMS, DPay, PayByLinkPSC, PayByLink, PayByLinkDB, PayByLinkSMS, PayNow, Lvlup, PayPal }
+
+module.exports = { HotPay, HotPayPSC, HotPayDB, CashBill, MicroSMS, DPay, PayByLinkPSC, PayByLink, PayByLinkDB, PayByLinkSMS, PayNow, Lvlup, PayPal }
