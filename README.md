@@ -20,6 +20,14 @@ For more info please visit docs
 ```
 https://docs.ycode.xyz/node-payments
 ```
+
+Other languages
+
+#### Java
+```
+[polish-java-payments](https://github.com/wiktordev/polish-java-payments)
+```
+
 ## Help
 
 For help, contact me on Discord: [wiktor#8880](https://discord.com/users/643819423248941068) or [Discord server](https://discord.gg/VFFf7hYfhj)
