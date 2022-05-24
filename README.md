@@ -24,9 +24,8 @@ https://docs.ycode.xyz/node-payments
 Other languages
 
 #### Java
-```
 [polish-java-payments](https://github.com/wiktordev/polish-java-payments)
-```
+
 
 ## Help
 
