@@ -23,14 +23,9 @@ https://docs.ycode.xyz/node-payments
 
 Other languages
 
-#### Java
-[polish-java-payments](https://github.com/wiktordev/polish-java-payments)
-
-#### Python
-[polish-py-payments](https://github.com/ivall/polish-py-payments) (ivall)
-
-#### PHP
-[polish_payyments_api](https://github.com/PatryQHyper/polish_payments_api) (PatryQHyper)
+Java: [polish-java-payments](https://github.com/wiktordev/polish-java-payments)
+Python: [polish-py-payments](https://github.com/ivall/polish-py-payments) (ivall)
+PHP: [polish_payyments_api](https://github.com/PatryQHyper/polish_payments_api) (PatryQHyper)
 
 ## Help
 
