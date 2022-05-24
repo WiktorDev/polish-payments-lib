@@ -21,7 +21,7 @@ For more info please visit docs
 https://docs.ycode.xyz/node-payments
 ```
 
-Other languages
+### Other languages
 
 Java: [polish-java-payments](https://github.com/wiktordev/polish-java-payments)
 
