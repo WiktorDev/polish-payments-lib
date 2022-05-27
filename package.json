@@ -6,7 +6,7 @@
     "query-string": "^7.0.1"
   },
   "name": "polish-payments-lib",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Polish nodejs payments lib",
   "main": "index.js",
   "scripts": {
