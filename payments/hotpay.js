@@ -60,7 +60,7 @@ exports.generatePayment=async function(secret, password, price, name, redirect, 
     var config = {
         method: 'post',
         url: 'https://platnosc.hotpay.pl/',
-        data : data
+        data: data
     };
     try {
         const response = await axios(config);

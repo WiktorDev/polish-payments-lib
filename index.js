@@ -7,6 +7,18 @@ const paynow = require('./payments/paynow');
 const lvlup = require('./payments/lvlup');
 const paypal = require('./payments/paypal')
 
+class HotPaySMS {
+  constructor(secret) {
+    this.secret = secret;
+  }
+  checkCode(code){
+    return hotpay.checkCode(this.secret, code)
+  }
+  generateMultiSMS(){
+
+  }
+}
+
 class HotPay {
   constructor(secret, notification_password) {
     this.secret = secret;
@@ -201,4 +213,4 @@ class PayPal{
   }
 }
 
-module.exports = { HotPay, HotPayPSC, HotPayDB, CashBill, MicroSMS, DPay, PayByLinkPSC, PayByLink, PayByLinkDB, PayByLinkSMS, PayNow, Lvlup, PayPal }
+module.exports = { HotPay, HotPayPSC, HotPayDB, CashBill, MicroSMS, DPay, PayByLinkPSC, PayByLink, PayByLinkDB, PayByLinkSMS, PayNow, Lvlup, PayPal, HotPaySMS }
