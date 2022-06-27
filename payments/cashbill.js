@@ -77,3 +77,17 @@ exports.getPaymentInfo = async function getPaymentInfo(orderId, secretPhrase, sh
         return error.response.data
     }
 }
+
+exports.checkCode = async(token, code)=>{
+    var config = {
+        method: 'get',
+        url: `https://sms.cashbill.pl/code/${token}/${code}`
+    };
+
+    try {
+        const response = await axios(config);
+        return response.data
+    } catch (error) {
+        return error.response.data
+    }
+}

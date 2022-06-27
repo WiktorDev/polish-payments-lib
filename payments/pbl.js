@@ -91,6 +91,10 @@ exports.generateIpnHash=(hash, data)=>{
     return crypto.createHash('sha256').update(string).digest('hex');
 }
 
+exports.getIps=async()=>{
+
+}
+
 exports.pscPayment = async function pscPayment(userID, shopID, pin, price, return_ok, return_fail, notify_url, control, description){
     var params = {
         userid: userID,
