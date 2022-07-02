@@ -211,6 +211,12 @@ class PayPal{
   getPaymentInfo(paymentID){
     return paypal.getPaymentInfo(this.clientID, this.clientSecret, this.sandbox, paymentID);
   }
+  verifyWebhookSignature(webhookId, headers, body){
+    return paypal.verifyWebhookSignature(this.clientID, this.clientSecret, this.sandbox, webhookId, headers, body)
+  }
+  execute(paymentId, payerId){
+    return paypal.execute(this.clientID, this.clientSecret, this.sandbox, paymentId, payerId)
+  }
 }
 
 module.exports = { HotPay, HotPayPSC, HotPayDB, CashBill, MicroSMS, DPay, PayByLinkPSC, PayByLink, PayByLinkDB, PayByLinkSMS, PayNow, Lvlup, PayPal, HotPaySMS }

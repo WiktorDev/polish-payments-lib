@@ -94,7 +94,10 @@ exports.verifyWebhookSignature=async(clientID, clientSecret, sandbox, webhookId,
     }
 }
 
-exports.execute=async(clientID, clientSecret, sandbox, id)=>{
+exports.execute=async(clientID, clientSecret, sandbox, id, payerID)=>{
+    let data = {
+        payer_id: payerID
+    }
     let config = {
         method: 'post',
         url: `${sandbox ? 'https://api-m.sandbox.paypal.com': 'https://api-m.paypal.com'}/v1/payments/payment/${id}/execute`,
@@ -104,7 +107,8 @@ exports.execute=async(clientID, clientSecret, sandbox, id)=>{
         },
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        data: JSON.stringify(data)
     }
     try {
         const response = await axios(config);
