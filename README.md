@@ -1,6 +1,9 @@
+# This version is deprecated! Please use new version https://github.com/WiktorDev/node-payments-lib3.0
+
 # polish-payments-lib
 Polish Payments Providers nodejs library
 
+<!--
 ### Supported payment operators:
 
 * HotPay
@@ -32,3 +35,4 @@ PHP: [polish_payments_api](https://github.com/PatryQHyper/polish_payments_api) (
 ## Help
 
 For help, contact me on Discord: [wiktor#8880](https://discord.com/users/643819423248941068) or [Discord server](https://discord.gg/VFFf7hYfhj)
+-->
