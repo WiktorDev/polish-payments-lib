@@ -1,9 +1,9 @@
 # This version is deprecated! Please use new version https://github.com/WiktorDev/node-payments-lib3.0
 
+<!--
 # polish-payments-lib
 Polish Payments Providers nodejs library
 
-<!--
 ### Supported payment operators:
 
 * HotPay
